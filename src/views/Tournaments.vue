@@ -30,13 +30,14 @@
       </form>
     </div>
 
-    <div>
+    <div class="row align-items-start">
       <tournamentscomp
         v-for="tournament in tournaments"
         :key="tournament._id"
         :info="tournament"
       />
-    </div>
+      </div>
+    
   </div>
 </template>
 

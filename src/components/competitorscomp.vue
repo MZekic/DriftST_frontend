@@ -6,6 +6,7 @@
         <h5 class="card-title">Korisničko ime: {{info.username}}</h5>
         <p class="card-text">Ime: {{info.name}}</p>
         <p class="card-text">Kategorija: {{info.selected}}</p>
+        <p  class="card-text">Broj pobjeđenih turnira: {{info.wins}}</p>
 
         
       </div>

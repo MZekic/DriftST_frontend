@@ -2,7 +2,8 @@ import axios from "axios";
 import $router from "@/router";
 // instanca axios-a za potrebe driftst backenda
 let Service = axios.create({
-  baseURL: "https://driftst.herokuapp.com/",
+  // baseURL: "https://driftst.herokuapp.com/",
+  baseURL: "http://localhost:3000/",
   timeout: 1000,
 });
 
@@ -99,6 +100,7 @@ let allCompetitors = {
         username: doc.username,
         name: doc.name,
         selected: doc.category,
+        wins: doc.wins
       };
     });
 
@@ -179,12 +181,20 @@ let Tournaments = {
     return response.data;
   },
   async bracketFunction(index, round, _id) {
-    console.log("1", round, "2", index, "3", _id);
     await Service.post("/brackets/win", {
       round: round,
       id: _id,
       index: index,
     });
+  },
+
+  async endTournament(username, _id){
+    console.log(username)
+    let response = await Service.post(`/brackets/winner`, {
+      username: username,
+      id: _id
+    })
+    console.log(response)
   },
 
   async deleteTournament(_id) {

@@ -1,5 +1,11 @@
 <template>
   <div class="tournament-brackets">
+    <div v-if="username == 'Admin'">
+      <form @submit.prevent="endT(competitors._id)">
+        <button type="submit" class="btn btn-warning">Završi turnir</button>
+      </form>
+    </div>
+
     <div class="bracket">
       <template v-for="(round, index) in rounds">
         <div class="round" :key="index" :class="['round-' + round]">
@@ -60,20 +66,29 @@ export default {
   },
   created() {
     this.dbGet();
+    this.checkAdmin();
   },
   methods: {
     async dbGet() {
       this.competitors = await Tournaments.viewBracket();
     },
     async winner(index, round, _id) {
-      await Tournaments.bracketFunction(index, round, _id);
-      this.dbGet();
-
+      if (this.competitors.status != "inactive") {
+        await Tournaments.bracketFunction(index, round, _id);
+        this.dbGet();
+      } else {
+        alert("Turnir je zaključan");
+      }
       // alert(`ALOHA ${round} ${index}`);
       //  this.$router.go(0)
     },
     async checkAdmin() {
       this.username = await Tournaments.getUsername();
+    },
+    endT(_id) {
+      Tournaments.endTournament(this.competitors.round1[0], _id);
+      console.log(status);
+      alert(`Pobjednik turnira je ${this.competitors.round1[0]}`);
     },
   },
 };
