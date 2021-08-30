@@ -2,8 +2,7 @@ import axios from "axios";
 import $router from "@/router";
 // instanca axios-a za potrebe driftst backenda
 let Service = axios.create({
-  // baseURL: "https://driftst.herokuapp.com/",
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://driftst.herokuapp.com/",
   timeout: 1000,
 });
 
